@@ -1,14 +1,19 @@
 package com.example.lokaljobs
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lokaljobs.model.Job
-
+import com.example.lokaljobs.network.RetrofitInstance
+import kotlinx.coroutines.launch
 
 class JobsFragment : Fragment() {
 
@@ -28,30 +33,32 @@ class JobsFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
         jobAdapter = JobAdapter(jobList)
         recyclerView.adapter = jobAdapter
 
-        loadJobs()
+        fetchJobs()
     }
 
-    private fun loadJobs() {
-        // Simulated data — replace with your API result later
-        jobList.addAll(
-            listOf(
-                Job(1, "Android Developer", "Bangalore", "₹8 LPA", "9876543210"),
-                Job(2, "Backend Engineer", "Mumbai", "₹12 LPA", "8765432109"),
-                Job(1, "Android Developer", "Bangalore", "₹8 LPA", "9876543210"),
-                Job(2, "Backend Engineer", "Mumbai", "₹12 LPA", "8765432109"),
-                Job(1, "Android Developer", "Bangalore", "₹8 LPA", "9876543210"),
-                Job(2, "Backend Engineer", "Mumbai", "₹12 LPA", "8765432109"),
-                Job(1, "Android Developer", "Bangalore", "₹8 LPA", "9876543210"),
-                Job(2, "Backend Engineer", "Mumbai", "₹12 LPA", "8765432109"),                Job(1, "Android Developer", "Bangalore", "₹8 LPA", "9876543210"),
-                Job(2, "Backend Engineer", "Mumbai", "₹12 LPA", "8765432109"),
-                Job(1, "Android Developer", "Bangalore", "₹8 LPA", "9876543210"),
-                Job(2, "Backend Engineer", "Mumbai", "₹12 LPA", "8765432109"),
-            )
-        )
-        jobAdapter.notifyDataSetChanged()
+    @SuppressLint("NotifyDataSetChanged")
+    private fun fetchJobs() {
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitInstance.api.getJobs()
+                if (response.isSuccessful && response.body() != null) {
+                    val jobsFromApi = response.body()?.results ?: emptyList()
+                    Log.d("hehe", response.body().toString())
+                    jobList.clear()
+                    jobList.addAll(jobsFromApi)
+                    jobAdapter.notifyDataSetChanged()
+                }
+                else {
+                    Toast.makeText(requireContext(), "Error: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Log.e("API_ERROR", "Failed to fetch jobs: ${e.message}")
+                Toast.makeText(requireContext(), "Failed to load jobs", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
+
 }

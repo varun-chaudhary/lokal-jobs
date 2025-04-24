@@ -26,9 +26,11 @@ class JobAdapter(
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val job = jobList[position]
         holder.title.text = job.title
-        holder.location.text = "Location: ${job.location}"
-        holder.salary.text = "Salary: ${job.salary}"
-        holder.phone.text = "Phone: ${job.phone}"
+
+        val primaryDetails = job.primary_details
+        holder.location.text = "Location: ${primaryDetails?.Place ?: "N/A"}"
+        holder.salary.text = "Salary: ${primaryDetails?.Salary ?: "N/A"}"
+        holder.phone.text = "Phone: ${job.whatsapp_no ?: "N/A"}"
     }
 
     override fun getItemCount(): Int = jobList.size
