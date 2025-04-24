@@ -73,7 +73,6 @@ class JobDetailFragment : Fragment() {
         binding.btnBookmark.setOnClickListener {
             lifecycleScope.launch {
                 jobDao.insertJob(job)
-
             }
         }
     }

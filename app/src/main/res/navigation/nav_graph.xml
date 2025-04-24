@@ -17,7 +17,11 @@
     <fragment
         android:id="@+id/bookmarksFragment"
         android:name="com.example.lokaljobs.BookmarksFragment"
-        android:label="Bookmarks" />
+        android:label="Bookmarks">
+        <action
+            android:id="@+id/action_bookmarksFragment_to_jobDetailFragment"
+            app:destination="@id/jobDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/jobDetailFragment"
