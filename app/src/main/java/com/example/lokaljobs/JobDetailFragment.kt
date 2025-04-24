@@ -5,13 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import com.example.lokaljobs.dao.JobDao
+import com.example.lokaljobs.database.AppDatabase
 import com.example.lokaljobs.databinding.FragmentJobDeatilsBinding
 import com.example.lokaljobs.model.Job
+import kotlinx.coroutines.launch
 
 class JobDetailFragment : Fragment() {
 
     private var _binding: FragmentJobDeatilsBinding? = null
     private val binding get() = _binding!!
+
+    private lateinit var jobDao: JobDao
 
     private lateinit var job: Job
 
@@ -20,6 +26,7 @@ class JobDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentJobDeatilsBinding.inflate(inflater, container, false)
+        jobDao = AppDatabase.getDatabase(requireContext()).jobDao()
         return binding.root
     }
 
@@ -61,6 +68,13 @@ class JobDetailFragment : Fragment() {
         job.primaryDetails?.qualification?.let {
             binding.tvQualification.text = "Qualification: $it"
             binding.tvQualification.visibility = View.VISIBLE
+        }
+
+        binding.btnBookmark.setOnClickListener {
+            lifecycleScope.launch {
+                jobDao.insertJob(job)
+
+            }
         }
     }
 

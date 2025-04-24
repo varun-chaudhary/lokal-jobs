@@ -56,7 +56,7 @@ class JobListFragment : Fragment() {
                     Log.d("hehe", response.body().toString())
                     jobList.clear()
                     val filteredJobs = jobsFromApi.filter { job ->  // jobs without title or primary details will be ignored
-                        job.title != null && job.primaryDetails != null
+                        job.id != null && job.title != null && job.primaryDetails != null
                     }
                     jobList.addAll(filteredJobs)
                     jobAdapter.notifyDataSetChanged()

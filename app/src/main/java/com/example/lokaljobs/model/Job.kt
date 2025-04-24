@@ -1,17 +1,22 @@
 package com.example.lokaljobs.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import com.example.lokaljobs.database.PrimaryDetailsTypeConverter
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 
 @Parcelize
+@Entity(tableName = "bookmarked_jobs")
+@TypeConverters(PrimaryDetailsTypeConverter::class)
 data class Job(
-    val id: Int?,
+    @PrimaryKey val id: Int,
     val title: String?,
     val type: Int?,
     @SerializedName("primary_details") val primaryDetails: PrimaryDetails?,
-    @SerializedName("job_tags") val jobTags: List<JobTag>?,
     @SerializedName("job_type") val jobType: Int?,
     @SerializedName("job_category_id") val jobCategoryId: Int?,
     val qualification: Int?,
@@ -28,7 +33,7 @@ data class Job(
 
     @SerializedName("company_name") val companyName: String?,
     @SerializedName("whatsapp_no") val whatsappNumber: String?,
-    val isBookmarked: Boolean?
+    var isBookmarked: Boolean? = false
 ) : Parcelable {
     override fun toString(): String {
         return "Job(title='$title', primaryDetails=$primaryDetails, whatsappNumber='$whatsappNumber')"
@@ -44,11 +49,4 @@ data class PrimaryDetails(
     @SerializedName("Experience") val experience: String?,
     @SerializedName("Fees_Charged") val feesCharged: String?,
     @SerializedName("Qualification") val qualification: String?
-) : Parcelable
-
-@Parcelize
-data class JobTag(
-    val value: String,
-    @SerializedName("bg_color") val bgColor: String?,
-    @SerializedName("text_color") val textColor: String?
 ) : Parcelable
