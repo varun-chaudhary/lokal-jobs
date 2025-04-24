@@ -27,10 +27,10 @@ class JobAdapter(
         val job = jobList[position]
         holder.title.text = job.title
 
-        val primaryDetails = job.primary_details
-        holder.location.text = "Location: ${primaryDetails?.Place ?: "N/A"}"
-        holder.salary.text = "Salary: ${primaryDetails?.Salary ?: "N/A"}"
-        holder.phone.text = "Phone: ${job.whatsapp_no ?: "N/A"}"
+        val primaryDetails = job.primaryDetails
+        holder.location.text = "Location: ${primaryDetails?.place ?: "N/A"}"
+        holder.salary.text = "Salary: ${primaryDetails?.salary ?: "N/A"}"
+        holder.phone.text = "Phone: ${job.whatsappNumber ?: "N/A"}"
     }
 
     override fun getItemCount(): Int = jobList.size
