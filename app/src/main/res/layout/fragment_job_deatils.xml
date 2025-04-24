@@ -1,14 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JobDeatilsFragment">
+    android:fillViewport="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Job Fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</FrameLayout>
+        <!-- Job Title -->
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Job Title" />
+
+        <!-- Company Name -->
+        <TextView
+            android:id="@+id/tvCompanyName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Company"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- WhatsApp Number -->
+        <TextView
+            android:id="@+id/tvWhatsapp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WhatsApp"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- Salary -->
+        <TextView
+            android:id="@+id/tvSalary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salary"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- Place -->
+        <TextView
+            android:id="@+id/tvPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Place"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- Job Type -->
+        <TextView
+            android:id="@+id/tvJobType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Job Type"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- Experience -->
+        <TextView
+            android:id="@+id/tvExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Experience"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- Qualification -->
+        <TextView
+            android:id="@+id/tvQualification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Qualification"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+    </LinearLayout>
+</ScrollView>

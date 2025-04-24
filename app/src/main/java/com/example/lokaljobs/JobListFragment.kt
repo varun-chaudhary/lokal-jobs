@@ -9,13 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lokaljobs.model.Job
 import com.example.lokaljobs.network.RetrofitInstance
 import kotlinx.coroutines.launch
 
-class JobsFragment : Fragment() {
+class JobListFragment : Fragment() {
 
     private lateinit var jobAdapter: JobAdapter
     private lateinit var recyclerView: RecyclerView
@@ -33,7 +34,12 @@ class JobsFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        jobAdapter = JobAdapter(jobList)
+        jobAdapter = JobAdapter(jobList) { job ->
+
+            val action = JobListFragmentDirections
+                .actionJobListFragmentToJobDetailFragment(job)
+            findNavController().navigate(action)
+        }
         recyclerView.adapter = jobAdapter
 
         fetchJobs()
