@@ -52,9 +52,13 @@ class JobListFragment : Fragment() {
                 val response = RetrofitInstance.api.getJobs()
                 if (response.isSuccessful && response.body() != null) {
                     val jobsFromApi = response.body()?.results ?: emptyList()
+
                     Log.d("hehe", response.body().toString())
                     jobList.clear()
-                    jobList.addAll(jobsFromApi)
+                    val filteredJobs = jobsFromApi.filter { job ->  // jobs without title or primary details will be ignored
+                        job.title != null && job.primaryDetails != null
+                    }
+                    jobList.addAll(filteredJobs)
                     jobAdapter.notifyDataSetChanged()
                 }
                 else {

@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Job(
-    val id: Int,
+    val id: Int?,
     val title: String?,
     val type: Int?,
     @SerializedName("primary_details") val primaryDetails: PrimaryDetails?,
