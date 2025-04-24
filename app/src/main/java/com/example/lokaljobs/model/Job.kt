@@ -13,7 +13,7 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "bookmarked_jobs")
 @TypeConverters(PrimaryDetailsTypeConverter::class)
 data class Job(
-    @PrimaryKey val id: Int,
+    @PrimaryKey val id: String,
     val title: String?,
     val type: Int?,
     @SerializedName("primary_details") val primaryDetails: PrimaryDetails?,

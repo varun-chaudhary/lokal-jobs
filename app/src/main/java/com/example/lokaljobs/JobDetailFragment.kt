@@ -10,6 +10,8 @@ import com.example.lokaljobs.dao.JobDao
 import com.example.lokaljobs.database.AppDatabase
 import com.example.lokaljobs.databinding.FragmentJobDeatilsBinding
 import com.example.lokaljobs.model.Job
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class JobDetailFragment : Fragment() {
@@ -18,8 +20,8 @@ class JobDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var jobDao: JobDao
-
     private lateinit var job: Job
+    private var isBookmarked: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +33,7 @@ class JobDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         job = arguments?.getParcelable("job") ?: return
 
         binding.tvTitle.text = job.title
@@ -70,11 +73,39 @@ class JobDetailFragment : Fragment() {
             binding.tvQualification.visibility = View.VISIBLE
         }
 
+
+        lifecycleScope.launch {
+            isBookmarked = jobDao.isBookmarked(job.id.toString())
+            updateBookmarkButton()
+        }
+
         binding.btnBookmark.setOnClickListener {
             lifecycleScope.launch {
-                jobDao.insertJob(job)
+                if (isBookmarked) {
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                    deleteJobInBackground()
+                } else {
+                    jobDao.insertJob(job)
+                    isBookmarked = true
+                    updateBookmarkButton()
+                }
             }
         }
+
+
+    }
+
+    private fun deleteJobInBackground() {
+
+        val deleteJobJob = CoroutineScope(Dispatchers.IO).launch {
+            jobDao.deleteJob(job)
+        }
+
+        deleteJobJob.invokeOnCompletion {
+        }
+    }
+    private fun updateBookmarkButton() {
+        binding.btnBookmark.text = if (isBookmarked) "Remove Bookmark" else "Bookmark"
     }
 
     override fun onDestroyView() {

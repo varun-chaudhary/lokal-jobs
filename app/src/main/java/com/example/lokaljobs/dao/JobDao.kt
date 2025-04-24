@@ -18,6 +18,13 @@ interface JobDao {
     @Query("SELECT * FROM bookmarked_jobs WHERE id = :id")
     suspend fun getJobById(id: Int): Job
 
+    @Query("SELECT EXISTS(SELECT 1 FROM bookmarked_jobs WHERE id = :jobId)")
+    suspend fun isBookmarked(jobId: String): Boolean
+
+    @Query("DELETE FROM bookmarked_jobs WHERE id = :jobId")
+    suspend fun deleteJobById(jobId: String)
+
+
     @Query("SELECT EXISTS(SELECT * FROM bookmarked_jobs WHERE id = :jobId)")
     suspend fun isJobBookmarked(jobId: Int): Boolean
 }

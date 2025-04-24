@@ -34,7 +34,6 @@ class BookmarksFragment : Fragment() {
 
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        // Fetch bookmarked jobs from the database
         fetchBookmarkedJobs()
     }
 
