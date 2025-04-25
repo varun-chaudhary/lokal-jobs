@@ -13,4 +13,30 @@
         android:layout_marginBottom="100dp"
         tools:listitem="@layout/item_job"/>
 
+
+    <ProgressBar
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No jobs to display"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/errorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Something went wrong.\nPlease check your internet connection."
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:visibility="gone"/>
+
 </FrameLayout>

@@ -13,4 +13,32 @@
         android:layout_marginBottom="100dp"
         tools:listitem="@layout/item_job"/>
 
+
+    <ProgressBar
+        android:id="@+id/loadingView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No bookmarks yet."
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+
+    <TextView
+        android:id="@+id/errorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Failed to load bookmarks. Please try again."
+        android:textColor="@android:color/holo_red_dark"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
 </FrameLayout>
