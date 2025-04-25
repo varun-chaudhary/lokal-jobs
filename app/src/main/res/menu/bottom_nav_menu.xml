@@ -1,9 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/jobsFragment"
-        android:title="Jobs"/>
+        android:title="Jobs"
+        android:icon="@drawable/ic_job"/>
 
     <item
         android:id="@+id/bookmarksFragment"
-        android:title="Bookmarks"/>
+        android:title="Bookmarks"
+        android:icon="@drawable/ic_bookmark"/>
 </menu>
